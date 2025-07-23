@@ -1,0 +1,17 @@
+LIBRARY
+EXPORTS
+
+MmInitialize
+MmCleanup
+
+LoadLibraryMemory
+LoadLibraryMemoryExA
+LoadLibraryMemoryExW
+FreeLibraryMemory
+
+LdrLoadDllMemoryExW
+LdrUnloadDllMemory
+LdrUnloadDllMemoryAndExitThread
+LdrQuerySystemMemoryModuleFeatures
+
+MmpGlobalDataPtr
