@@ -21,7 +21,7 @@ typedef struct _MEMORYMODULE {
 		codes
 	*/
 	ULONG64 Signature;
-
+	
 	DWORD SizeofHeaders;
 	union {
 		struct {
