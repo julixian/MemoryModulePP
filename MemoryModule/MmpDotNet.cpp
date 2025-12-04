@@ -126,7 +126,7 @@ BOOL WINAPI HookGetFileInformationByHandle(
         RtlZeroMemory(lpFileInformation, sizeof(BY_HANDLE_FILE_INFORMATION));
 
         auto entry = (PLDR_DATA_TABLE_ENTRY)iter->value;
-        auto module = MapMemoryModuleHandle((HMEMORYMODULE)entry->DllBase);
+        auto module = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
 
         lpFileInformation->ftCreationTime = lpFileInformation->ftLastAccessTime = lpFileInformation->ftLastWriteTime = MmpGlobalDataPtr->MmpDotNet->AssemblyTimes;
         lpFileInformation->nFileSizeLow = module->dwImageFileSize;
@@ -155,7 +155,7 @@ BOOL WINAPI HookGetFileAttributesExW(
             );
 
             LPWIN32_FILE_ATTRIBUTE_DATA data = (LPWIN32_FILE_ATTRIBUTE_DATA)lpFileInformation;
-            auto module = MapMemoryModuleHandle((HMEMORYMODULE)entry->DllBase);
+            auto module = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
 
             data->ftCreationTime = data->ftLastAccessTime = data->ftLastWriteTime = MmpGlobalDataPtr->MmpDotNet->AssemblyTimes;
             data->nFileSizeLow = module->dwImageFileSize;
@@ -182,7 +182,7 @@ DWORD WINAPI HookGetFileSize(
         if (lpFileSizeHigh)*lpFileSizeHigh = 0;
 
         auto entry = (PLDR_DATA_TABLE_ENTRY)iter->value;
-        auto module = MapMemoryModuleHandle((HMEMORYMODULE)entry->DllBase);
+        auto module = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
 
         return module->dwImageFileSize;
     }
@@ -202,7 +202,7 @@ BOOL WINAPI HookGetFileSizeEx(
     auto iter = MmpFindHandleEntry(hFile);
     if (iter) {
         auto entry = (PLDR_DATA_TABLE_ENTRY)iter->value;
-        auto module = MapMemoryModuleHandle((HMEMORYMODULE)entry->DllBase);
+        auto module = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
 
         lpFileSize->QuadPart = module->dwImageFileSize;
         return TRUE;
@@ -252,9 +252,9 @@ LPVOID WINAPI HookMapViewOfFileEx(
 
     auto iter = MmpFindHandleEntry(hFileMappingObject);
     if (iter) {
-        HMEMORYMODULE hModule = nullptr;
+        HMEMORYMODULEPP hModule = nullptr;
         auto entry = (PLDR_DATA_TABLE_ENTRY)iter->value;
-        auto pModule = MapMemoryModuleHandle((HMEMORYMODULE)entry->DllBase);
+        auto pModule = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
         if (pModule) {
             if (iter->bImageMapping) {
                 MemoryLoadLibrary_PP(&hModule, pModule->lpReserved, pModule->dwImageFileSize);
@@ -299,7 +299,7 @@ LPVOID WINAPI HookMapViewOfFile(
 BOOL WINAPI HookUnmapViewOfFile(_In_ LPCVOID lpBaseAddress) {
     auto iter = MmpFindHandleEntry((HANDLE)lpBaseAddress);
     if (iter) {
-        MemoryFreeLibrary_PP((HMEMORYMODULE)lpBaseAddress);
+        MemoryFreeLibrary_PP((HMEMORYMODULEPP)lpBaseAddress);
         MmpFreeHandleEntry(iter);
         return TRUE;
     }

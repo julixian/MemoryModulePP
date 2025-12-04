@@ -51,21 +51,21 @@ extern "C" {
 	NTSTATUS NTAPI LdrQuerySystemMemoryModuleFeatures(_Out_ PDWORD pFeatures);
 
 	NTSTATUS NTAPI LdrLoadDllMemoryExW(
-		_Out_ HMEMORYMODULE* BaseAddress,		// Output module base address
+		_Out_ HMEMORYMODULEPP* BaseAddress,		// Output module base address
 		_Out_opt_ PVOID* LdrEntry,				// Receive a pointer to the LDR node of the module
 		_In_ DWORD dwFlags,						// Flags
 		_In_ LPVOID BufferAddress,				// Pointer to the dll file data buffer
 		_In_ size_t Reserved,					// Reserved parameter, must be 0
 		_In_opt_ LPCWSTR DllName,				// Module file name
 		_In_opt_ LPCWSTR DllFullName,			// Module file full path
-		std::function<void(HMODULE)> JLX_callback
+		std::function<void(HMODULE)> PreLoadCallback
 	);
 
 	//Unload modules previously loaded from memory
-	NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULE BaseAddress);
+	NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULEPP BaseAddress);
 
 	__declspec(noreturn) VOID NTAPI LdrUnloadDllMemoryAndExitThread(
-		_In_ HMEMORYMODULE BaseAddress,
+		_In_ HMEMORYMODULEPP BaseAddress,
 		_In_ DWORD dwExitCode
 	);
 }

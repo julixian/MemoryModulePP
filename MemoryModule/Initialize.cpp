@@ -76,7 +76,7 @@ PVOID FindLdrpInvertedFunctionTable32() {
 		CurEntry = CONTAINING_RECORD(ListEntry, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks);
 		ListEntry = ListEntry->Flink;
 		if (IsModuleUnloaded(CurEntry))continue;					//skip unloaded module
-		if (IsValidMemoryModuleHandle((HMEMORYMODULE)CurEntry->DllBase))continue;  //skip our memory module.
+		if (IsValidMemoryModuleHandle((HMEMORYMODULEPP)CurEntry->DllBase))continue;  //skip our memory module.
 		if (CurEntry->DllBase == hNtdll && Offset == 0x20)continue;	//Win10 skip first entry, if the base of ntdll is smallest.
 		hModule = (HMODULE)(hModule ? min(hModule, CurEntry->DllBase) : CurEntry->DllBase);
 	}
@@ -139,7 +139,7 @@ PVOID FindLdrpInvertedFunctionTable64() {
 			CurEntry = CONTAINING_RECORD(ListEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);
 			ListEntry = ListEntry->Flink;
 			//Make sure the smallest base address is not our memory module
-			if (IsValidMemoryModuleHandle((HMEMORYMODULE)CurEntry->DllBase))continue;
+			if (IsValidMemoryModuleHandle((HMEMORYMODULEPP)CurEntry->DllBase))continue;
 			hModule = (HMODULE)(hModule ? min(hModule, CurEntry->DllBase) : CurEntry->DllBase);
 		}
 		ModuleHeaders = RtlImageNtHeader(hModule);
@@ -531,7 +531,7 @@ NTSTATUS CleanupLockHeld() {
 		CurEntry = CONTAINING_RECORD(ListEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);
 		ListEntry = ListEntry->Flink;
 
-		if (IsValidMemoryModuleHandle((HMEMORYMODULE)CurEntry->DllBase)) {
+		if (IsValidMemoryModuleHandle((HMEMORYMODULEPP)CurEntry->DllBase)) {
 
 			//
 			// Make sure all memory module is unloaded.

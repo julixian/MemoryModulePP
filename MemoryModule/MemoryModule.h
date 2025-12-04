@@ -3,7 +3,7 @@
 #ifndef __MEMORY_MODULE_HEADER
 #define __MEMORY_MODULE_HEADER
 
-typedef HMODULE HMEMORYMODULE;
+typedef HMODULE HMEMORYMODULEPP;
 
 typedef struct _MEMORYMODULE {
 	/*
@@ -66,7 +66,7 @@ extern "C" {
 #endif
 
 	NTSTATUS MemoryLoadLibrary_PP(
-		_Out_ HMEMORYMODULE* MemoryModuleHandle,
+		_Out_ HMEMORYMODULEPP* MemoryModuleHandle,
 		_In_ LPCVOID data,
 		_In_ DWORD size
 	);
@@ -76,11 +76,11 @@ extern "C" {
 		_In_ PIMAGE_NT_HEADERS lpNtHeaders
 	);
 
-    BOOL MemoryFreeLibrary_PP(HMEMORYMODULE);
+    BOOL MemoryFreeLibrary_PP(HMEMORYMODULEPP);
 
-	BOOL WINAPI IsValidMemoryModuleHandle(HMEMORYMODULE hModule);
+	BOOL WINAPI IsValidMemoryModuleHandle(HMEMORYMODULEPP hModule);
 
-	PMEMORYMODULE WINAPI MapMemoryModuleHandle(HMEMORYMODULE hModule);
+	PMEMORYMODULE WINAPI MapMemoryModuleHandle(HMEMORYMODULEPP hModule);
 
 	NTSTATUS MmpInitializeStructure(
 		DWORD ImageFileSize,

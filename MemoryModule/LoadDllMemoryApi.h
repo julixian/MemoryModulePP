@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <functional>
 
-typedef HMODULE HMEMORYMODULE;
+typedef HMODULE HMEMORYMODULEPP;
 #include "Loader.h"
 #include "Initialize.h"
 
@@ -14,28 +14,28 @@ typedef HMODULE HMEMORYMODULE;
 
 extern "C" {
 
-	HMEMORYMODULE WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress,
-		std::function<void(HMODULE)> JLX_callback);
+	HMEMORYMODULEPP WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress,
+		std::function<void(HMODULE)> PreLoadCallback);
 
-	HMEMORYMODULE WINAPI LoadLibraryMemoryExA(
+	HMEMORYMODULEPP WINAPI LoadLibraryMemoryExA(
 		_In_ PVOID BufferAddress,
 		_In_ size_t Reserved,
 		_In_opt_ LPCSTR DllBaseName,
 		_In_opt_ LPCSTR DllFullName,
 		_In_ DWORD Flags,
-		std::function<void(HMODULE)> JLX_callback
+		std::function<void(HMODULE)> PreLoadCallback
 	);
 
-	HMEMORYMODULE WINAPI LoadLibraryMemoryExW(
+	HMEMORYMODULEPP WINAPI LoadLibraryMemoryExW(
 		_In_ PVOID BufferAddress,
 		_In_ size_t Reserved,
 		_In_opt_ LPCWSTR DllBaseName,
 		_In_opt_ LPCWSTR DllFullName,
 		_In_ DWORD Flags,
-		std::function<void(HMODULE)> JLX_callback
+		std::function<void(HMODULE)> PreLoadCallback
 	);
 
-	BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULE hMemoryModule);
+	BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULEPP hMemoryModule);
 
 }
 

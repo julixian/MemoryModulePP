@@ -13,7 +13,7 @@
 #endif
 
 NTSTATUS NTAPI LdrMapDllMemory(
-	_In_ HMEMORYMODULE ViewBase,
+	_In_ HMEMORYMODULEPP ViewBase,
 	_In_ DWORD dwFlags,
 	_In_opt_ PCWSTR DllName,
 	_In_opt_ PCWSTR lpFullDllName,
@@ -46,7 +46,7 @@ NTSTATUS NTAPI LdrMapDllMemory(
 }
 
 NTSTATUS PerformInitialCheck(
-	_Out_ HMEMORYMODULE* BaseAddress,
+	_Out_ HMEMORYMODULEPP* BaseAddress,
 	_Out_opt_ PVOID* LdrEntry,
 	_In_ DWORD dwFlags,
 	_In_ LPVOID BufferAddress,
@@ -73,14 +73,14 @@ NTSTATUS PerformInitialCheck(
 
 
 NTSTATUS NTAPI LdrLoadDllMemoryExW(
-	_Out_ HMEMORYMODULE* BaseAddress,
+	_Out_ HMEMORYMODULEPP* BaseAddress,
 	_Out_opt_ PVOID* LdrEntry,
 	_In_ DWORD dwFlags,
 	_In_ LPVOID BufferAddress,
 	_In_ size_t BufferSize,
 	_In_opt_ LPCWSTR DllName,
 	_In_opt_ LPCWSTR DllFullName,
-	std::function<void(HMODULE)> JLX_callback
+	std::function<void(HMODULE)> PreLoadCallback
 	) {
 	PMEMORYMODULE module = nullptr;
 	NTSTATUS status = STATUS_SUCCESS;
@@ -125,7 +125,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 
 				/* Let's compare their headers */
 				if (!(h2 = RtlImageNtHeader(CurEntry->DllBase)))continue;
-				if (!(module = MapMemoryModuleHandle((HMEMORYMODULE)CurEntry->DllBase)))continue;
+				if (!(module = MapMemoryModuleHandle((HMEMORYMODULEPP)CurEntry->DllBase)))continue;
 				if ((h1->OptionalHeader.SizeOfCode == h2->OptionalHeader.SizeOfCode) &&
 					(h1->OptionalHeader.SizeOfHeaders == h2->OptionalHeader.SizeOfHeaders)) {
 				
@@ -133,7 +133,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 					if (!module->UseReferenceCount || dwFlags & LOAD_FLAGS_NOT_USE_REFERENCE_COUNT)return STATUS_INVALID_PARAMETER_3;
 					
 					RtlUpdateReferenceCount(module, FLAG_REFERENCE);
-					*BaseAddress = (HMEMORYMODULE)CurEntry->DllBase;
+					*BaseAddress = (HMEMORYMODULEPP)CurEntry->DllBase;
 					if (LdrEntry)*LdrEntry = CurEntry;
 					return STATUS_SUCCESS;
 				}
@@ -164,8 +164,8 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 			status = MemorySetSectionProtection(LPBYTE(*BaseAddress), headers);
 			if (!NT_SUCCESS(status))break;
 
-			if (JLX_callback)
-				JLX_callback((HMODULE)*BaseAddress);
+			if (PreLoadCallback)
+				PreLoadCallback((HMODULE)*BaseAddress);
 
 			if (!LdrpExecuteTLS(module) || !LdrpCallInitializers(module, DLL_PROCESS_ATTACH)) {
 				status = STATUS_DLL_INIT_FAILED;
@@ -219,8 +219,8 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 			MmpPreInitializeHooksForDotNet();
 		}
 
-		if (JLX_callback)
-			JLX_callback((HMODULE)*BaseAddress);
+		if (PreLoadCallback)
+			PreLoadCallback((HMODULE)*BaseAddress);
 
 		if (!LdrpExecuteTLS(module) || !LdrpCallInitializers(module, DLL_PROCESS_ATTACH)) {
 			status = STATUS_DLL_INIT_FAILED;
@@ -244,7 +244,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 	return status;
 }
 
-NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULE BaseAddress) {
+NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULEPP BaseAddress) {
 	PLDR_DATA_TABLE_ENTRY CurEntry;
 	ULONG count = 0;
 	NTSTATUS status = STATUS_SUCCESS;
@@ -316,7 +316,7 @@ NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULE BaseAddress) {
 }
 
 DECLSPEC_NORETURN
-VOID NTAPI LdrUnloadDllMemoryAndExitThread(_In_ HMEMORYMODULE BaseAddress, _In_ DWORD dwExitCode) {
+VOID NTAPI LdrUnloadDllMemoryAndExitThread(_In_ HMEMORYMODULEPP BaseAddress, _In_ DWORD dwExitCode) {
 	LdrUnloadDllMemory(BaseAddress);
 	RtlExitUserThread(dwExitCode);
 }

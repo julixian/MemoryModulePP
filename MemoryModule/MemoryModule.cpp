@@ -42,7 +42,7 @@ int MmpSizeOfImageHeadersUnsafe(PVOID BaseAddress) {
 	return sizeOfHeaders;
 }
 
-PMEMORYMODULE WINAPI MapMemoryModuleHandle(HMEMORYMODULE hModule) {
+PMEMORYMODULE WINAPI MapMemoryModuleHandle(HMEMORYMODULEPP hModule) {
 
 	if (!hModule)return nullptr;
 
@@ -55,7 +55,7 @@ PMEMORYMODULE WINAPI MapMemoryModuleHandle(HMEMORYMODULE hModule) {
 	return pModule;
 }
 
-BOOL WINAPI IsValidMemoryModuleHandle(HMEMORYMODULE hModule) {
+BOOL WINAPI IsValidMemoryModuleHandle(HMEMORYMODULEPP hModule) {
 	return MapMemoryModuleHandle(hModule) != nullptr;
 }
 
@@ -114,7 +114,7 @@ NTSTATUS MemorySetSectionProtection(
 }
 
 NTSTATUS MemoryLoadLibrary_PP(
-	_Out_ HMEMORYMODULE* MemoryModuleHandle,
+	_Out_ HMEMORYMODULEPP* MemoryModuleHandle,
 	_In_ LPCVOID data,
 	_In_ DWORD size) {
 
@@ -308,7 +308,7 @@ NTSTATUS MemoryLoadLibrary_PP(
 		if (!NT_SUCCESS(status))break;
 
 		__try {
-			*MemoryModuleHandle = (HMEMORYMODULE)base;
+			*MemoryModuleHandle = (HMEMORYMODULEPP)base;
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			status = GetExceptionCode();
@@ -318,11 +318,11 @@ NTSTATUS MemoryLoadLibrary_PP(
 		return status;
 	} while (false);
 
-	MemoryFreeLibrary_PP((HMEMORYMODULE)base);
+	MemoryFreeLibrary_PP((HMEMORYMODULEPP)base);
 	return status;
 }
 
-BOOL MemoryFreeLibrary_PP(HMEMORYMODULE mod) {
+BOOL MemoryFreeLibrary_PP(HMEMORYMODULEPP mod) {
 	PMEMORYMODULE module = MapMemoryModuleHandle(mod);
 	PIMAGE_NT_HEADERS headers = RtlImageNtHeader(mod);
 
