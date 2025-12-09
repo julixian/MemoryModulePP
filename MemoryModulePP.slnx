@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="a/a.vcxproj" Id="da79c619-bdac-4cf1-a38c-b1f5e05f4485" />
+  <Project Path="MemoryModule/MemoryModule.vcxproj" Id="5b1f46db-036e-4a50-af5f-f5d6584d42c6" />
+  <Project Path="test/test.vcxproj" Id="5b3131ba-178a-4a28-bd54-315a45c97ed1">
+    <Deploy Solution="Debug|x64" />
+    <Deploy Solution="Debug|x86" />
+  </Project>
+</Solution>

@@ -141,7 +141,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 		}
 	}
 
-	status = MemoryLoadLibrary_PP(BaseAddress, BufferAddress, (DWORD)BufferSize);
+	status = MemoryLoadLibraryPP(BaseAddress, BufferAddress, (DWORD)BufferSize);
 	if (!NT_SUCCESS(status) || status == STATUS_IMAGE_MACHINE_TYPE_MISMATCH)return status;
 
 	if (!(module = MapMemoryModuleHandle(*BaseAddress))) {
@@ -175,7 +175,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 		} while (false);
 
 		if (!NT_SUCCESS(status)) {
-			MemoryFreeLibrary_PP(*BaseAddress);
+			MemoryFreeLibraryPP(*BaseAddress);
 		}
 
 		return status;
@@ -267,7 +267,7 @@ NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULEPP BaseAddress) {
 		//Mapping dll failed
 		if (!module->MappedDll) {
 			module->underUnload = true;
-			status = (MemoryFreeLibrary_PP(BaseAddress) ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL);
+			status = (MemoryFreeLibraryPP(BaseAddress) ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL);
 			break;
 		}
 
@@ -308,7 +308,7 @@ NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULEPP BaseAddress) {
 			if (!RtlFreeLdrDataTableEntry(CurEntry)) __fastfail(FAST_FAIL_FATAL_APP_EXIT);
 		}
 
-		if (!MemoryFreeLibrary_PP(BaseAddress)) __fastfail(FAST_FAIL_FATAL_APP_EXIT);
+		if (!MemoryFreeLibraryPP(BaseAddress)) __fastfail(FAST_FAIL_FATAL_APP_EXIT);
 
 	} while (false);
 

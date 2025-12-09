@@ -113,7 +113,7 @@ NTSTATUS MemorySetSectionProtection(
 	return status;
 }
 
-NTSTATUS MemoryLoadLibrary_PP(
+NTSTATUS MemoryLoadLibraryPP(
 	_Out_ HMEMORYMODULEPP* MemoryModuleHandle,
 	_In_ LPCVOID data,
 	_In_ DWORD size) {
@@ -318,11 +318,11 @@ NTSTATUS MemoryLoadLibrary_PP(
 		return status;
 	} while (false);
 
-	MemoryFreeLibrary_PP((HMEMORYMODULEPP)base);
+	MemoryFreeLibraryPP((HMEMORYMODULEPP)base);
 	return status;
 }
 
-BOOL MemoryFreeLibrary_PP(HMEMORYMODULEPP mod) {
+BOOL MemoryFreeLibraryPP(HMEMORYMODULEPP mod) {
 	PMEMORYMODULE module = MapMemoryModuleHandle(mod);
 	PIMAGE_NT_HEADERS headers = RtlImageNtHeader(mod);
 

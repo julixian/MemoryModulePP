@@ -65,7 +65,7 @@ typedef struct _MEMORYMODULE {
 extern "C" {
 #endif
 
-	NTSTATUS MemoryLoadLibrary_PP(
+	NTSTATUS MemoryLoadLibraryPP(
 		_Out_ HMEMORYMODULEPP* MemoryModuleHandle,
 		_In_ LPCVOID data,
 		_In_ DWORD size
@@ -76,7 +76,7 @@ extern "C" {
 		_In_ PIMAGE_NT_HEADERS lpNtHeaders
 	);
 
-    BOOL MemoryFreeLibrary_PP(HMEMORYMODULEPP);
+    BOOL MemoryFreeLibraryPP(HMEMORYMODULEPP);
 
 	BOOL WINAPI IsValidMemoryModuleHandle(HMEMORYMODULEPP hModule);
 

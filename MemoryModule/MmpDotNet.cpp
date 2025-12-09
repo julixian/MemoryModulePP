@@ -257,7 +257,7 @@ LPVOID WINAPI HookMapViewOfFileEx(
         auto pModule = MapMemoryModuleHandle((HMEMORYMODULEPP)entry->DllBase);
         if (pModule) {
             if (iter->bImageMapping) {
-                MemoryLoadLibrary_PP(&hModule, pModule->lpReserved, pModule->dwImageFileSize);
+                MemoryLoadLibraryPP(&hModule, pModule->lpReserved, pModule->dwImageFileSize);
                 if (hModule) MmpInsertHandleEntry(hModule, hModule);
             }
             else {
@@ -299,7 +299,7 @@ LPVOID WINAPI HookMapViewOfFile(
 BOOL WINAPI HookUnmapViewOfFile(_In_ LPCVOID lpBaseAddress) {
     auto iter = MmpFindHandleEntry((HANDLE)lpBaseAddress);
     if (iter) {
-        MemoryFreeLibrary_PP((HMEMORYMODULEPP)lpBaseAddress);
+        MemoryFreeLibraryPP((HMEMORYMODULEPP)lpBaseAddress);
         MmpFreeHandleEntry(iter);
         return TRUE;
     }
