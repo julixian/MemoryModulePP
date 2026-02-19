@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <cstdlib>
 
 HMEMORYMODULEPP WINAPI LoadLibraryMemoryExW(
@@ -7,7 +7,7 @@ HMEMORYMODULEPP WINAPI LoadLibraryMemoryExW(
 	_In_opt_ LPCWSTR DllBaseName,
 	_In_opt_ LPCWSTR DllFullName,
 	_In_ DWORD Flags,
-	std::function<void(HMODULE)> PreLoadCallback) {
+	const std::function<void(HMODULE)>& PreLoadCallback) {
 	HMEMORYMODULEPP hMemoryModule = nullptr;
 	NTSTATUS status = LdrLoadDllMemoryExW(&hMemoryModule, nullptr, Flags, BufferAddress, Reserved, DllBaseName, DllFullName, PreLoadCallback);
 	if (!NT_SUCCESS(status) || status == STATUS_IMAGE_MACHINE_TYPE_MISMATCH) {
@@ -22,7 +22,7 @@ HMEMORYMODULEPP WINAPI LoadLibraryMemoryExA(
 	_In_opt_ LPCSTR DllBaseName,
 	_In_opt_ LPCSTR DllFullName,
 	_In_ DWORD Flags,
-	std::function<void(HMODULE)> PreLoadCallback) {
+	const std::function<void(HMODULE)>& PreLoadCallback) {
 	LPWSTR _DllName = nullptr, _DllFullName = nullptr;
 	size_t size;
 	HMEMORYMODULEPP result = nullptr;
@@ -61,7 +61,7 @@ HMEMORYMODULEPP WINAPI LoadLibraryMemoryExA(
 	return result;
 }
 
-HMEMORYMODULEPP WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress, std::function<void(HMODULE)> PreLoadCallback) {
+HMEMORYMODULEPP WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress, const std::function<void(HMODULE)>& PreLoadCallback) {
 	return LoadLibraryMemoryExW(BufferAddress, 0, nullptr, nullptr, 0, PreLoadCallback);
 }
 

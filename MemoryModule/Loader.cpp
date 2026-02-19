@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <cmath>
 #include <functional>
 
@@ -80,7 +80,7 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 	_In_ size_t BufferSize,
 	_In_opt_ LPCWSTR DllName,
 	_In_opt_ LPCWSTR DllFullName,
-	std::function<void(HMODULE)> PreLoadCallback
+	const std::function<void(HMODULE)>& PreLoadCallback
 	) {
 	PMEMORYMODULE module = nullptr;
 	NTSTATUS status = STATUS_SUCCESS;

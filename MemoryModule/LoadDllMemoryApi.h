@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include <functional>
 
@@ -15,7 +15,7 @@ typedef HMODULE HMEMORYMODULEPP;
 extern "C" {
 
 	HMEMORYMODULEPP WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress,
-		std::function<void(HMODULE)> PreLoadCallback);
+		const std::function<void(HMODULE)>& PreLoadCallback);
 
 	HMEMORYMODULEPP WINAPI LoadLibraryMemoryExA(
 		_In_ PVOID BufferAddress,
@@ -23,7 +23,7 @@ extern "C" {
 		_In_opt_ LPCSTR DllBaseName,
 		_In_opt_ LPCSTR DllFullName,
 		_In_ DWORD Flags,
-		std::function<void(HMODULE)> PreLoadCallback
+		const std::function<void(HMODULE)>& PreLoadCallback
 	);
 
 	HMEMORYMODULEPP WINAPI LoadLibraryMemoryExW(
@@ -32,7 +32,7 @@ extern "C" {
 		_In_opt_ LPCWSTR DllBaseName,
 		_In_opt_ LPCWSTR DllFullName,
 		_In_ DWORD Flags,
-		std::function<void(HMODULE)> PreLoadCallback
+		const std::function<void(HMODULE)>& PreLoadCallback
 	);
 
 	BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULEPP hMemoryModule);

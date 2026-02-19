@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <functional>
 
 #define MEMORY_FEATURE_SUPPORT_VERSION				0x00000001
@@ -58,7 +58,7 @@ extern "C" {
 		_In_ size_t Reserved,					// Reserved parameter, must be 0
 		_In_opt_ LPCWSTR DllName,				// Module file name
 		_In_opt_ LPCWSTR DllFullName,			// Module file full path
-		std::function<void(HMODULE)> PreLoadCallback
+		const std::function<void(HMODULE)>& PreLoadCallback
 	);
 
 	//Unload modules previously loaded from memory
