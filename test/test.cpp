@@ -1,5 +1,5 @@
-#include "../MemoryModule/stdafx.h"
-#include "../MemoryModule/LoadDllMemoryApi.h"
+﻿#include "../MemoryModule/stdafx.h"
+#include "../MemoryModule/LoadDllMemoryApi.hpp"
 #include <cstdio>
 #pragma comment(lib,"ntdll.lib")
 
