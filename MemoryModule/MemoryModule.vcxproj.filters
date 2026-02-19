@@ -113,10 +113,10 @@
     <ClInclude Include="MemoryModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Loader.h">
+    <ClInclude Include="Loader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoadDllMemoryApi.h">
+    <ClInclude Include="LoadDllMemoryApi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InvertedFunctionTable.h">
@@ -260,7 +260,7 @@
     <ClInclude Include="ImportTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Initialize.h">
+    <ClInclude Include="Initialize.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

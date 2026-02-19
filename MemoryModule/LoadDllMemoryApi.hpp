@@ -3,8 +3,8 @@
 #include <functional>
 
 typedef HMODULE HMEMORYMODULEPP;
-#include "Loader.h"
-#include "Initialize.h"
+#include "Loader.hpp"
+#include "Initialize.hpp"
 
 #define MemoryModuleToModule(_hMemoryModule_) (_hMemoryModule_)
 

@@ -40,7 +40,7 @@
 #include "MmpDotNet.h"
 
 //MemoryModulePP api interface
-#include "Loader.h"
+#include "Loader.hpp"
 
 //utils
 #include "Utils.h"

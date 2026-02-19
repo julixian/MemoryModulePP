@@ -152,15 +152,15 @@
     <ClInclude Include="..\3rdparty\phnt\include\subprocesstag.h" />
     <ClInclude Include="..\3rdparty\phnt\include\winsta.h" />
     <ClInclude Include="ImportTable.h" />
-    <ClInclude Include="Initialize.h" />
-    <ClInclude Include="LoadDllMemoryApi.h" />
+    <ClInclude Include="Initialize.hpp" />
+    <ClInclude Include="LoadDllMemoryApi.hpp" />
     <ClInclude Include="LoaderPrivate.h" />
     <ClInclude Include="MemoryModule.h" />
     <ClInclude Include="MmpDotNet.h" />
     <ClInclude Include="MmpTlsFiber.h" />
     <ClInclude Include="MmpGlobalData.h" />
     <ClInclude Include="MmpTls.h" />
-    <ClInclude Include="Loader.h" />
+    <ClInclude Include="Loader.hpp" />
     <ClInclude Include="BaseAddressIndex.h" />
     <ClInclude Include="InvertedFunctionTable.h" />
     <ClInclude Include="LdrEntry.h" />
@@ -669,7 +669,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_MEMORY_MODULE;_HAS_AUTO_INITIALIZE;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MEMORY_MODULE;_HAS_AUTO_INITIALIZE;NDEBUG;_LIB;MMPP_USE_TLS 1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
