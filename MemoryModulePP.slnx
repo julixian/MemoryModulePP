@@ -10,17 +10,26 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="a/a.vcxproj" Id="da79c619-bdac-4cf1-a38c-b1f5e05f4485">
-    <BuildType Solution="Rel_Ldrp|*" Project="Release_Ldrp" />
+    <BuildType Solution="Rel_Ldrp|ARM" Project="Release" />
+    <BuildType Solution="Rel_Ldrp|ARM64" Project="Release" />
+    <BuildType Solution="Rel_Mmp|ARM" Project="Release" />
+    <BuildType Solution="Rel_Mmp|ARM64" Project="Release" />
     <Build Solution="Release|x64" Project="false" />
     <Build Solution="Release|x86" Project="false" />
     <Build Solution="Rel_Ldrp|*" Project="false" />
     <Build Solution="Rel_Mmp|*" Project="false" />
   </Project>
   <Project Path="MemoryModule/MemoryModule.vcxproj" Id="5b1f46db-036e-4a50-af5f-f5d6584d42c6">
-    <BuildType Solution="Rel_Ldrp|*" Project="Release_Ldrp" />
+    <BuildType Solution="Rel_Ldrp|ARM" Project="ReleaseDll" />
+    <BuildType Solution="Rel_Ldrp|ARM64" Project="ReleaseDll" />
+    <BuildType Solution="Rel_Mmp|ARM" Project="ReleaseDll" />
+    <BuildType Solution="Rel_Mmp|ARM64" Project="ReleaseDll" />
   </Project>
   <Project Path="test/test.vcxproj" Id="5b3131ba-178a-4a28-bd54-315a45c97ed1">
-    <BuildType Solution="Rel_Ldrp|*" Project="Release_Ldrp" />
+    <BuildType Solution="Rel_Ldrp|ARM" Project="Release" />
+    <BuildType Solution="Rel_Ldrp|ARM64" Project="Release" />
+    <BuildType Solution="Rel_Mmp|ARM" Project="Release" />
+    <BuildType Solution="Rel_Mmp|ARM64" Project="Release" />
     <Build Solution="Release|x64" Project="false" />
     <Build Solution="Release|x86" Project="false" />
     <Build Solution="Rel_Ldrp|*" Project="false" />
