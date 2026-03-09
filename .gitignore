@@ -14,9 +14,11 @@
 *.userprefs
 
 # Build results
+Release_/
+Rel_Ldrp/
+Rel_Mmp/
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease_/
 [Rr]elease/
 [Rr]eleases/
 x64/
