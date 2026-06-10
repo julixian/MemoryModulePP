@@ -509,14 +509,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rel_Mmp|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);</IncludePath>
-    <TargetName>MemoryModulePP_x86</TargetName>
-    <OutDir>$(SolutionDir)Release_\MMPP_MmpTls\</OutDir>
+    <TargetName>MemoryModulePP_Mmp</TargetName>
+    <OutDir>$(SolutionDir)Release\x86\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rel_Ldrp|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);</IncludePath>
-    <TargetName>MemoryModulePP_x86</TargetName>
-    <OutDir>$(SolutionDir)Release_\MMPP_LdrpTls\</OutDir>
+    <TargetName>MemoryModulePP_Ldrp</TargetName>
+    <OutDir>$(SolutionDir)Release\x86\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <LinkIncremental>false</LinkIncremental>
@@ -550,14 +550,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rel_Mmp|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);</IncludePath>
-    <TargetName>MemoryModulePP_x64</TargetName>
-    <OutDir>$(SolutionDir)Release_\MMPP_MmpTls\</OutDir>
+    <TargetName>MemoryModulePP_Mmp</TargetName>
+    <OutDir>$(SolutionDir)Release\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rel_Ldrp|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);</IncludePath>
-    <TargetName>MemoryModulePP_x64</TargetName>
-    <OutDir>$(SolutionDir)Release_\MMPP_LdrpTls\</OutDir>
+    <TargetName>MemoryModulePP_Ldrp</TargetName>
+    <OutDir>$(SolutionDir)Release\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <LinkIncremental>false</LinkIncremental>
